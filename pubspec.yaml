@@ -39,6 +39,7 @@ dependencies:
   image_cropper: ^1.4.1
   image: any
   image_editor: any
+  image_picker:
   
 dev_dependencies:
   flutter_test:
