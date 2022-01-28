@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:bedit/save.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -79,28 +81,23 @@ class EditeImage extends HookWidget {
                                 }),
                                 box("origine", () {
                                   status.value = CropAspectRatios.original;
-                                                                    _show.value = false;
-
+                                  _show.value = false;
                                 }),
                                 box("1*1", () {
                                   status.value = CropAspectRatios.ratio1_1;
-                                                                    _show.value = false;
-
+                                  _show.value = false;
                                 }),
                                 box("4.3", () {
                                   status.value = CropAspectRatios.ratio4_3;
-                                                                    _show.value = false;
-
+                                  _show.value = false;
                                 }),
                                 box("3*4", () {
                                   status.value = CropAspectRatios.ratio3_4;
-                                                                    _show.value = false;
-
+                                  _show.value = false;
                                 }),
                                 box("9-*16", () {
                                   status.value = CropAspectRatios.ratio9_16;
-                                                                    _show.value = false;
-
+                                  _show.value = false;
                                 })
                               ],
                             ),
@@ -196,6 +193,7 @@ class EditeImage extends HookWidget {
   show(_show) {
     _show.value = true;
   }
+
   Future<void> crop([bool test = false]) async {
     final ExtendedImageEditorState? state = editorKey.currentState;
     final Rect? rect = state!.getCropRect();
@@ -214,10 +212,6 @@ class EditeImage extends HookWidget {
     if (action.hasRotateAngle) {
       option.addOption(RotateOption(radian.toInt()));
     }
-/* 
-    option.addOption(ColorOption.saturation(sat));
-    option.addOption(ColorOption.brightness(bright + 1));
-    option.addOption(ColorOption.contrast(con)); */
 
     option.outputFormat = const OutputFormat.jpeg(100);
 
@@ -232,18 +226,17 @@ class EditeImage extends HookWidget {
     print('result.length = ${result!.length}');
 
     final Duration diff = DateTime.now().difference(start);
-    imageTestUrl.writeAsBytesSync(result);
+    image.writeAsBytesSync(result);
     print('image_editor time : $diff');
-/*     Future.delayed(Duration(seconds: 0)).then(
-      (value) => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
+   Future.delayed(Duration(seconds: 0)).then(
+      (value) =>   MaterialPageRoute(
             builder: (context) => SaveImageScreen(
-                  arguments: [image],
+                image :[img],
                 )),
-      ),
-    ); */
+    
+    ); 
   }
+
   Widget box(String label, [onTap]) {
     return GestureDetector(
       onTap: onTap,
